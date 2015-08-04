@@ -4,19 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.LinkedList;
 
 public class SnakeGame
 {
-    private static SnakeElement head = new SnakeElement(100, 100, 10, 10);
-    private static LinkedList<SnakeElement> body = new LinkedList<>();
+    private static SnakeElement head;
+    private static SnakeBody body;
 
     public static void main(String[] args)
     {
-        for (int i = 12; i < 100; i += 12)
-        {
-            body.add(new SnakeElement(head.getX() - i, 100, 10, 10));
-        }
+        head = new SnakeElement(new Position(150, 150), 15, 15);
+        body = new SnakeBody(head, 10);
 
         JFrame frame = new JFrame("SnakeGame");
         frame.setSize(800, 600);
@@ -30,18 +27,19 @@ public class SnakeGame
 
                 Graphics2D g2d = (Graphics2D) g;
 
-                g2d.drawRect(head.getX(),
-                        head.getY(),
-                        head.getWidth(),
-                        head.getHeight());
+                RenderingHints rh = new RenderingHints(
+                        RenderingHints.KEY_TEXT_ANTIALIASING,
+                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                g2d.setRenderingHints(rh);
 
-                for (SnakeElement elem : body)
+                for (SnakeElement elem : body.getElements())
                 {
-                    g2d.drawRect(elem.getX(),
-                            elem.getY(),
+                    g2d.drawRect(elem.getPosition().getX(),
+                            elem.getPosition().getY(),
                             elem.getWidth(),
                             elem.getHeight());
                 }
+
             }
         };
 
@@ -65,25 +63,19 @@ public class SnakeGame
                 switch (e.getKeyCode())
                 {
                     case 37:
-                        head.setX(-3);
-
-                        for (SnakeElement elem : body)
-                        {
-                            elem.setX(-3);
-                        }
-
+                        body.recalculate("LEFT");
                         panel.repaint();
                         break;
                     case 39:
-                        head.setX(3);
+                        body.recalculate("RIGHT");
                         panel.repaint();
                         break;
                     case 38:
-                        head.setY(-3);
+                        body.recalculate("UP");
                         panel.repaint();
                         break;
                     case 40:
-                        head.setY(3);
+                        body.recalculate("DOWN");
                         panel.repaint();
                         break;
                 }
@@ -98,16 +90,20 @@ public class SnakeGame
 
         while (true)
         {
-            head.setX(3);
-            try
-            {
-                Thread.sleep(500);
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
+            start(panel);
+        }
+    }
+
+    private static void start(JPanel panel)
+    {
+        try
+        {
             panel.repaint();
+            Thread.sleep(150);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
 }

@@ -2,27 +2,20 @@ package solutions.snakeGame;
 
 public class SnakeElement
 {
-    private int x;
-    private int y;
+    private Position position;
     private int width;
     private int height;
 
-    public SnakeElement(int x, int y, int width, int height)
+    public SnakeElement(Position position, int width, int height)
     {
-        this.x = x;
-        this.y = y;
+        this.position = position;
         this.width = width;
         this.height = height;
     }
 
-    public int getX()
+    public Position getPosition()
     {
-        return x;
-    }
-
-    public int getY()
-    {
-        return y;
+        return position;
     }
 
     public int getWidth()
@@ -35,22 +28,26 @@ public class SnakeElement
         return height;
     }
 
-    public void setX(int x)
+    public void moveX(int x)
     {
-        this.x += x;
+        position.setX(position.getX() + x);
     }
 
-    public void setY(int y)
+    public void moveY(int y)
     {
-        this.y += y;
+        position.setY(position.getY() + y);
+    }
+
+    public void setPosition(Position position)
+    {
+        this.position = position;
     }
 
     @Override
     public String toString()
     {
         final StringBuilder sb = new StringBuilder("SnakeElement{");
-        sb.append("x=").append(x);
-        sb.append(", y=").append(y);
+        sb.append("position=").append(position);
         sb.append('}');
         return sb.toString();
     }
