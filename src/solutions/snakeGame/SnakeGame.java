@@ -9,6 +9,7 @@ public class SnakeGame
 {
     private static SnakeElement head;
     private static SnakeBody body;
+    private static String direction = "RIGHT";
 
     public static void main(String[] args)
     {
@@ -39,7 +40,6 @@ public class SnakeGame
                             elem.getWidth(),
                             elem.getHeight());
                 }
-
             }
         };
 
@@ -64,18 +64,22 @@ public class SnakeGame
                 {
                     case 37:
                         body.recalculate("LEFT");
+                        direction = "LEFT";
                         panel.repaint();
                         break;
                     case 39:
                         body.recalculate("RIGHT");
+                        direction = "RIGHT";
                         panel.repaint();
                         break;
                     case 38:
                         body.recalculate("UP");
+                        direction = "UP";
                         panel.repaint();
                         break;
                     case 40:
                         body.recalculate("DOWN");
+                        direction = "DOWN";
                         panel.repaint();
                         break;
                 }
@@ -98,6 +102,7 @@ public class SnakeGame
     {
         try
         {
+            body.recalculate(direction);
             panel.repaint();
             Thread.sleep(150);
         }

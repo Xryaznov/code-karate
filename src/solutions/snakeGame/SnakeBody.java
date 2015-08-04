@@ -34,38 +34,32 @@ public class SnakeBody
     {
         int len = body.size();
 
+        int headX = body.get(0).getPosition().getX();
+        int headY = body.get(0).getPosition().getY();
+
         switch (direction)
         {
             case "LEFT":
-
+                body.get(0).moveX(-18);
                 break;
             case "RIGHT":
-                for (int i = 0; i < len; i++)
-                {
-                    body.get(i).moveX(18);
-                }
+                body.get(0).moveX(18);
                 break;
-
             case "UP":
-
+                body.get(0).moveY(-18);
                 break;
-
             case "DOWN":
-
-                int headX = body.get(0).getPosition().getX();
-                int headY = body.get(0).getPosition().getY();
-
                 body.get(0).moveY(18);
-
-                for (int i = 1; i < len; i++)
-                {
-                    Position elemPos = body.get(i).getPosition();
-                    body.get(i).setPosition(new Position(headX, headY));
-
-                    headX = elemPos.getX();
-                    headY = elemPos.getY();
-                }
                 break;
+        }
+
+        for (int i = 1; i < len; i++)
+        {
+            Position elemPos = body.get(i).getPosition();
+            body.get(i).setPosition(new Position(headX, headY));
+
+            headX = elemPos.getX();
+            headY = elemPos.getY();
         }
     }
 }
