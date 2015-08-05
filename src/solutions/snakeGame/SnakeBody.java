@@ -62,4 +62,9 @@ public class SnakeBody
             headY = elemPos.getY();
         }
     }
+
+    public void addSnakePart(SnakeElement snakePart)
+    {
+        body.add(snakePart);
+    }
 }
