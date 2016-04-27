@@ -1,7 +1,5 @@
 package osherove.kata1;
 
-import java.util.Arrays;
-
 public class StringCalculator {
     int add(String... numbers) {
         int res = 0;
