@@ -1,4 +1,4 @@
-package solutions.snakeGame;
+package other.snakeGame;
 
 public class SnakeElement
 {

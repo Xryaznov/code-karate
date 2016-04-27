@@ -1,4 +1,4 @@
-package solutions.snakeGame;
+package other.snakeGame;
 
 import javax.swing.*;
 import java.util.Random;

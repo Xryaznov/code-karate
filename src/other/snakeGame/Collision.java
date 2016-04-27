@@ -1,4 +1,4 @@
-package solutions.snakeGame;
+package other.snakeGame;
 
 import java.awt.geom.Rectangle2D;
 

@@ -1,4 +1,4 @@
-package solutions.snakeGame;
+package other.snakeGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class SnakeGame
     private static SnakeBody body;
     private static String direction = "RIGHT";
 
-    public static void main(String[] args)
+    public void go()
     {
         head = new SnakeElement(new Position(144, 144), 15, 15);
         body = new SnakeBody(head, 4);
