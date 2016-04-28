@@ -1,42 +1,46 @@
 package osherove.kata1;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StringCalculatorTest {
+    private static StringCalculator sc;
 
-    @Test
-    public void testAddSimpleCases() throws Exception {
-        // given
-        StringCalculator sc = new StringCalculator();
-
-        // when
-        int res1 = sc.add("1");
-        int res2 = sc.add("1", "2");
-        int res3 = sc.add("0", "0");
-        int res4 = sc.add("");
-        int res5 = sc.add("", "");
-        int res6 = sc.add("64", "-2");
-
-        // then
-        assertEquals(1, res1);
-        assertEquals(3, res2);
-        assertEquals(0, res3);
-        assertEquals(0, res4);
-        assertEquals(0, res5);
-        assertEquals(62, res6);
+    @Before
+    public void setUp() {
+        sc = new StringCalculator();
     }
 
     @Test
-    public void testAddSeparators() throws Exception {
-        // given
-        StringCalculator sc = new StringCalculator();
-
-        // when
-        int res1 = sc.add("1\n2,3");
-
-        // then
-        assertEquals(6, res1);
+    public void testCanAddEmptyString() {
+        assertEquals(0, sc.add(""));
     }
+
+    @Test
+    public void testCanAddOneNumber() {
+        assertEquals(1, sc.add("1"));
+    }
+
+    @Test
+    public void testCanAddTwoNumbers() {
+        assertEquals(3, sc.add("1,2"));
+    }
+
+    @Test
+    public void testCanAddManyNumbers() {
+        assertEquals(123, sc.add("1,2,4,5,111"));
+    }
+
+    @Test
+    public void testCanHandleNewLines() {
+        assertEquals(6, sc.add("1\n2,3"));
+    }
+
+    @Test
+    public void testCanSupportDifferentDelimiters() {
+        assertEquals(3, sc.add("//;\n1;2"));
+    }
+
 }
