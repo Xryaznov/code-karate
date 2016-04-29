@@ -1,7 +1,5 @@
 package osherove.kata1;
 
-import java.util.Arrays;
-
 /**********************************
  * http://osherove.com/tdd-kata-1 *
  **********************************/
@@ -10,24 +8,36 @@ public class StringCalculator {
     public static int add(String numbers) {
         int res = 0;
 
-        if (!numbers.isEmpty() && !numbers.startsWith("//")) {
+        if (!numbers.isEmpty()) {
+
+            if (numbers.startsWith("//")) {
+                String delimiter = numbers.substring(2, 3);
+                numbers = numbers.replace(delimiter, ",");
+                add(numbers.split("\n")[1]);
+            }
+
             numbers = numbers.replace("\n", ",");
-            String[] split = numbers.split(",");
-            try {
-                for (String i : split) res += Integer.parseInt(i);
-            }
-            catch (NumberFormatException e) {
-
-            }
-        }
-
-        if (numbers.startsWith("//")) {
-            String delimiter = numbers.substring(2, 3);
-            numbers = numbers.substring(4);
-            numbers = numbers.replace(delimiter, ",");
-            res = add(numbers);
+            res = calculate(numbers, res);
         }
 
         return res;
+    }
+
+    private static int calculate(String numbers, int res) {
+        for (String i : numbers.split(",")) {
+            if (isInt(i)) {
+                res += Integer.parseInt(i.trim());
+            }
+        }
+        return res;
+    }
+
+    public static boolean isInt(String i) {
+        try {
+            Integer.parseInt(i.trim());
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 }
