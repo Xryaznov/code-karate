@@ -1,30 +1,30 @@
 package osherove.kata1;
 
+import java.util.Arrays;
+
 /**********************************
  * http://osherove.com/tdd-kata-1 *
  **********************************/
 
 public class StringCalculator {
-    public int add(String numbers) {
+    public static int add(String numbers) {
         int res = 0;
 
         if (!numbers.isEmpty() && !numbers.startsWith("//")) {
             numbers = numbers.replace("\n", ",");
-            String[] inputs = numbers.split(",");
+            String[] split = numbers.split(",");
+            try {
+                for (String i : split) res += Integer.parseInt(i);
+            }
+            catch (NumberFormatException e) {
 
-            for (String i : inputs) {
-                try {
-                    res += Integer.parseInt(i);
-                }
-                catch (NumberFormatException e) {
-                    System.out.println(e.getMessage());
-                }
             }
         }
 
         if (numbers.startsWith("//")) {
             String delimiter = numbers.substring(2, 3);
-            numbers = numbers.replace("//", "").replace(delimiter, ",");
+            numbers = numbers.substring(4);
+            numbers = numbers.replace(delimiter, ",");
             res = add(numbers);
         }
 
