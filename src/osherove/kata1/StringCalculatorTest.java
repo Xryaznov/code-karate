@@ -2,16 +2,13 @@ package osherove.kata1;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static osherove.kata1.StringCalculator.add;
-import static osherove.kata1.StringCalculator.isInt;
 
 public class StringCalculatorTest {
 
     @Test
-    public void testAddEmptyValue() throws Exception {
+    public void testAddEmptyString() throws Exception {
         assertEquals(0, add(""));
     }
 
@@ -26,8 +23,8 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void testAddManyValues() throws Exception {
-        assertEquals(6, add("1, 2,3"));
+    public void testUnknownAmountOfValues() throws Exception {
+        assertEquals(10, add("1,2,3,4"));
     }
 
     @Test
@@ -38,15 +35,23 @@ public class StringCalculatorTest {
     @Test
     public void testAddCanSupportDelimiters() throws Exception {
         assertEquals(3, add("//;\n1;2"));
-        assertEquals(3, add("//,\n1,2"));
-        assertEquals(3, add("//:\n1:2"));
     }
-
 
     @Test
-    public void testIsInt() throws Exception {
-        assertTrue(isInt("8"));
-        assertFalse(isInt("s"));
-        assertFalse(isInt("\n"));
+    public void testAddCanAddNegatives1() throws Exception {
+        try {
+            add("-1");
+            fail("should throw and exception");
+        }
+        catch (IllegalArgumentException e) {
+
+        }
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddCanAddNegatives2() throws Exception {
+        add("-1");
+    }
+
+
 }
