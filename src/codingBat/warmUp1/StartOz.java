@@ -17,24 +17,18 @@ public class StartOz {
 
 
     public String startOz(String str) {
-        for (char c : str.toCharArray()) {
-            if (!(String.valueOf(c).equals("z") || String.valueOf(c).equals("o"))) {
+        StringBuilder sb = new StringBuilder();
 
-                String st = str.substring(0, 2);
-
-                if (st.contains("o") && st.contains("z")) {
-                    return st;
-                }
-                else if (st.contains("o")) {
-                    return "o";
-                }
-                else if (st.contains("z")) {
-                    return "z";
-                }
-            }
+        if (str.contains("o") && str.charAt(0) == 'o') {
+            sb.append("o");
         }
 
-        return str;
+        if (str.contains("z") && str.charAt(1) == 'z') {
+            sb.append("z");
+        }
+
+        return sb.toString();
+
     }
 
         @Test
@@ -54,7 +48,7 @@ public class StartOz {
 
         @Test
         public void startOzTest4 () {
-            assertEquals("zoo", startOz("zoo"));
+            assertEquals("", startOz("zoo"));
         }
 
 
