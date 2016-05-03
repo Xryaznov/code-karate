@@ -1,35 +1,44 @@
 package osherove.kata1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**********************************
  * http://osherove.com/tdd-kata-1 *
  **********************************/
 
 public class StringCalculator {
-    public static int add(String numbers) {
-        int res = 0;
+    public int add(String numbers) {
+        return numbers.isEmpty() ? 0 : sum(toInt(numbers));
+    }
 
-        if (!numbers.isEmpty() && !numbers.startsWith("//")) {
-            numbers = numbers.replace("\n", ",");
+    private List<Integer> toInt(String numbers) {
+        if (numbers.startsWith("//")) {
+            String del = numbers.substring(2, 3);
+            numbers = numbers.replace("//", "").replace(del, ",");
+        }
+        numbers = numbers.replace("\n", ",");
 
-            for (String str : numbers.split(",")) {
-                if (!str.isEmpty()) {
-                    int i = Integer.parseInt(str);
+        List<Integer> integers = new ArrayList<>();
 
-                    if (i < 0) {
-                        throw new IllegalArgumentException("Negatives are not allowed: " + i);
-                    }
-
-                    res += Integer.parseInt(str);
+        for (String s : numbers.split(",")) {
+                if (!s.isEmpty()) {
+                    integers.add(Integer.parseInt(s));
                 }
-            }
         }
 
-        if (numbers.startsWith("//")) {
-            String del = numbers.substring(2, 3); // length of "//"
-            numbers = numbers.substring(2).replace(del, ",");
-            res = add(numbers);
+        return integers;
+    }
+
+    private int sum(List<Integer> integers) {
+        int res = 0;
+
+        for (int i: integers) {
+            res += i;
         }
 
         return res;
     }
+
+
 }
