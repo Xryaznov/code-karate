@@ -16,21 +16,21 @@ import static org.junit.Assert.assertEquals;
 
 public class HelloName {
     public String helloName(String name) {
-        return "Hello " + name;
+        return "Hello " + name + "!";
     }
 
     @Test
     public void testHelloNameIfBob() {
-        assertEquals("Hello Bob", helloName("Bob"));
+        assertEquals("Hello Bob!", helloName("Bob"));
     }
 
     @Test
     public void testHelloNameIfAlice() {
-        assertEquals("Hello Alice", helloName("Alice"));
+        assertEquals("Hello Alice!", helloName("Alice"));
     }
 
     @Test
     public void testHelloNameIfX() {
-        assertEquals("Hello X", helloName("X"));
+        assertEquals("Hello X!", helloName("X"));
     }
 }
