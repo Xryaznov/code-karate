@@ -1,6 +1,9 @@
 package osherove.kata1;
 
+import sun.swing.BakedArrayList;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**********************************
@@ -8,35 +11,33 @@ import java.util.List;
  **********************************/
 
 public class StringCalculator {
-    public int add(String numbers) {
-        return numbers.isEmpty() ? 0 : sum(toInt(numbers));
+    public int add(String str) {
+        return str.isEmpty() ? 0 : sum(toIntList(str));
     }
 
-    private List<Integer> toInt(String numbers) {
-        if (numbers.startsWith("//")) {
-            String del = numbers.substring(2, 3);
-            numbers = numbers.replace("//", "").replace(del, ",");
-        }
-        numbers = numbers.replace("\n", ",");
+    private List<Integer> toIntList(String str) {
+        List<Integer> integers = new ArrayList();
 
-        List<Integer> integers = new ArrayList<>();
+        str = str.replace("\n", ",");
 
-        for (String s : numbers.split(",")) {
-                if (!s.isEmpty()) {
-                    integers.add(Integer.parseInt(s));
-                }
+        String[] arr = str.split(",");
+
+        for (String s : arr) {
+            if (!s.isEmpty()) {
+                integers.add(Integer.parseInt(s));
+            }
         }
 
         return integers;
     }
 
     private int sum(List<Integer> integers) {
+
         int res = 0;
 
-        for (int i: integers) {
-            res += i;
-        }
-
+        for (int i : integers) {
+                res += i;
+            }
         return res;
     }
 
