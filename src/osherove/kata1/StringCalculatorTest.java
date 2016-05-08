@@ -3,43 +3,45 @@ package osherove.kata1;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class StringCalculatorTest {
-    private StringCalculator calc;
+    private StringCalculator sc;
 
     @Before
     public void setUp() {
-        calc = new StringCalculator();
+        sc = new StringCalculator();
     }
 
     @Test
-    public void shouldReturnZero() {
-        assertEquals(0, calc.add(""));
+    public void shouldReturnZero() throws Exception {
+        assertEquals(0, sc.add(""));
     }
 
     @Test
-    public void shouldReturnInput() {
-        assertEquals(1, calc.add("1"));
+    public void shouldReturnSameValue() throws Exception {
+        assertEquals(1, sc.add("1"));
     }
 
     @Test
-    public void shouldReturnSum() {
-        assertEquals(3, calc.add("1,2"));
+    public void shouldReturnSum() throws Exception {
+        assertEquals(3, sc.add("1, 2"));
     }
 
     @Test
-    public void shouldHandleNewLines() {
-        assertEquals(6, calc.add("1\n2,3"));
+    public void shouldHandNewLines() {
+        assertEquals(6, sc.add("1\n2, 3"));
     }
 
     @Test
-    public void shouldSupportDelimiters() {
-        assertEquals(3, calc.add("//;\n1;2"));
+    public void shouldHandDifferentDelimiters() {
+        assertEquals(6, sc.add("//;\n1;2;3"));
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionOnNegatives() {
-        calc.add("-1");
+    public void shouldFailOnNegatives() {
+        sc.add("-1,2");
     }
+
+
 }
