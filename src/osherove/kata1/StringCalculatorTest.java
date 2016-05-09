@@ -2,7 +2,7 @@ package osherove.kata1;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StringCalculatorTest {
 
@@ -12,7 +12,7 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void shouldReturnSameValueOnOneValue() throws Exception {
+    public void shouldReturnValueOnSingleValue() throws Exception {
         assertEquals(1, new StringCalculator().add("1"));
     }
 
@@ -22,16 +22,22 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void shouldHandleNewLinesAsDelimiters() throws Exception {
+    public void shouldReturnSumOnManyValues() throws Exception {
+        assertEquals(18, new StringCalculator().add("1, 10, 2, 2, 2, 1"));
+    }
+
+    @Test
+    public void shouldHandleNewLines() throws Exception {
         assertEquals(6, new StringCalculator().add("1\n2,3"));
     }
 
     @Test
-    public void shouldHandleDifferentDelimiters() throws Exception {
+    public void shouldSupportDifferentDelimiters() throws Exception {
         assertEquals(6, new StringCalculator().add("//;\n1;2;3"));
     }
 
-
-
-
+    @Test (expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionOnNegatives() throws Exception {
+        new StringCalculator().add("//;\n1;-2;3");
+    }
 }

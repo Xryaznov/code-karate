@@ -12,27 +12,14 @@ public class StringCalculator {
     }
 
     private int sum(String str) {
-        int res = 0;
-
-        int[] array = toIntArray(str);
-
-        for (int i : array) {
-            res += i;
-        }
-        return res;
-    }
-
-    private int[] toIntArray(String str) {
         if (str.startsWith("//")) {
             String delimiter = str.substring(2, 3);
-            str = str.substring(2).replace(delimiter, ",");
+            str = str.substring(3).replace(delimiter, ",");
         }
-
-        String[] strArray = str.replace("\n", ",").split(",");
-        int[] intArray = Arrays.stream(strArray).filter(s -> ! s.isEmpty())
+        return Arrays.asList(str.replace("\n", ",").split(",")).stream()
+                .filter(s -> !s.isEmpty())
                 .map(String::trim)
-                .mapToInt(Integer::parseInt).toArray();
-
-        return intArray;
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
 }
