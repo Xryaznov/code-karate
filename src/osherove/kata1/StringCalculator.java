@@ -13,13 +13,23 @@ public class StringCalculator {
 
     private int sum(String str) {
         if (str.startsWith("//")) {
-            String delimiter = str.substring(2, 3);
-            str = str.substring(3).replace(delimiter, ",");
+            String del = str.substring(2, 3);
+            str = str.substring(3).replace(del, ",");
         }
         return Arrays.asList(str.replace("\n", ",").split(",")).stream()
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
+                .filter(i -> check(i < 0))
                 .sum();
     }
+
+    private boolean check(boolean isNegative) {
+        if (isNegative) {
+            throw new IllegalArgumentException("Negatives are not allowed");
+        }
+        return !isNegative;
+    }
+
+
 }
