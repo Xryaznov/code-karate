@@ -1,10 +1,12 @@
 package osherove.kata1;
 
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class StringCalculatorTest {
+
     @Test
     public void shouldReturnZeroOnEmptyString() {
         assertEquals(0, new StringCalculator().add(""));
@@ -22,7 +24,7 @@ public class StringCalculatorTest {
 
     @Test
     public void shouldReturnSumOnSeveralValues() {
-        assertEquals(198290, new StringCalculator().add("1,2,3,4,198280"));
+        assertEquals(10, new StringCalculator().add("1,2,3,4"));
     }
 
     @Test
@@ -31,12 +33,12 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void shouldSupportSemicolonAsDelimiters() {
+    public void shouldHandleSemiColonsAsDelimiters() {
         assertEquals(6, new StringCalculator().add("//;\n1;2;3"));
     }
 
     @Test
-    public void shouldSupportAnyDelimiter() {
+    public void shouldSupportAnyDelimiters() {
         assertEquals(6, new StringCalculator().add("//$\n1$2$3"));
     }
 
@@ -45,7 +47,14 @@ public class StringCalculatorTest {
         new StringCalculator().add("//$\n1$-2$3");
     }
 
+    @Test
+    public void shouldIgnoreNumbersBiggerThan1000() {
+        assertEquals(2, new StringCalculator().add("2, 1001"));
+    }
 
-
+    @Test
+    public void shouldSupportDelimitersOfAnyLength() {
+        assertEquals(6, new StringCalculator().add("//[***]\n1***2***3"));
+    }
 
 }

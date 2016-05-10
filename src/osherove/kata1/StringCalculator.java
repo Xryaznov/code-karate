@@ -12,24 +12,29 @@ public class StringCalculator {
     }
 
     private int sum(String str) {
-        if (str.startsWith("//")) {
-            String del = str.substring(2, 3);
-            str = str.substring(3).replace(del, ",");
+        if (str.startsWith("//[")) {
+            String delimiter = str.substring(3, str.lastIndexOf("]"));
+            str = str.substring(("//" + "[]" + delimiter).length()).replace(delimiter, ",");
         }
-        return Arrays.asList(str.replace("\n", ",").split(",")).stream()
+
+        if (str.startsWith("//")) {
+            str = str.substring(3).replace(str.substring(2, 3), ",");
+        }
+
+        String[] strArray = str.replace("\n", ",").split(",");
+        return Arrays.asList(strArray).stream()
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
-                .filter(i -> check(i < 0))
+                .filter(i -> throwExceptionIfNegative(i))
+                .filter(i -> i <= 1000)
                 .sum();
     }
 
-    private boolean check(boolean isNegative) {
-        if (isNegative) {
+    private boolean throwExceptionIfNegative(int i) {
+        if (i < 0) {
             throw new IllegalArgumentException("Negatives are not allowed");
         }
-        return !isNegative;
+        return true;
     }
-
-
 }
