@@ -8,33 +8,32 @@ import java.util.Arrays;
 
 public class StringCalculator {
     public int add(String str) {
-        return str.isEmpty() ? 0 : sum(str);
+        return str.isEmpty() ? 0: sum(str);
     }
 
     private int sum(String str) {
-        if (str.startsWith("//[")) {
-            String delimiter = str.substring(3, str.lastIndexOf("]"));
-            str = str.substring(("//" + "[]" + delimiter).length()).replace(delimiter, ",");
-        }
-
-        if (str.startsWith("//")) {
-            str = str.substring(3).replace(str.substring(2, 3), ",");
-        }
-
-        String[] strArray = str.replace("\n", ",").split(",");
+        String[] strArray = toStrArray(str);
         return Arrays.asList(strArray).stream()
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
-                .filter(i -> throwExceptionIfNegative(i))
+                .filter(i -> isGreaterThanZero(i))
                 .filter(i -> i <= 1000)
                 .sum();
     }
 
-    private boolean throwExceptionIfNegative(int i) {
+    private boolean isGreaterThanZero(int i) {
         if (i < 0) {
-            throw new IllegalArgumentException("Negatives are not allowed");
+            throw new IllegalArgumentException("Negatives aren't allowed.");
         }
         return true;
+    }
+
+    private String[] toStrArray(String str) {
+        if (str.startsWith("//")) {
+            String delimiter = str.substring(2, 3);
+            str = str.substring(3).replace(delimiter, ",");
+        }
+        return str.replace("\n", ",").split(",");
     }
 }
