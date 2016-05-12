@@ -12,25 +12,20 @@ public class StringCalculator {
     }
 
     private int sum(String value) {
-        return Arrays.asList(toStrArray(value)).stream()
+        if (value.startsWith("//")) {
+            String delimiter = value.substring(2, 3);
+            value = normalize(normalize(value, delimiter), "//");
+        }
+        value = normalize(value, "\n");
+        String[] values = value.split(",");
+        return Arrays.asList(values).stream()
                 .filter(s -> !s.isEmpty())
                 .mapToInt(Integer::parseInt)
-                .filter(i -> {
-                    if (i < 0) {
-                        throw new IllegalArgumentException("Negatives are not allowed.");
-                    }
-                    return true;
-                })
-                .filter(i -> i <= 1000)
                 .sum();
     }
 
-    private String[] toStrArray(String value) {
-        if (value.startsWith("//")) {
-            String delimiter = value.substring(2, 3);
-            value = value.substring(3).replace(delimiter, ",");
-        }
-        value = value.replace("\n", ",");
-        return value.split(",");
+    private String normalize(String value, String s) {
+        return value.replace(s, ",");
     }
+
 }
