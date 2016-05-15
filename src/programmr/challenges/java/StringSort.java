@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  * <p>
  * Example:
  * <p>
- * 1.If user gives input "helloworld" then output string should be "dehllloorw".
+ * 1. If user gives input "helloworld" then output string should be "dehllloorw".
  * 2. If user gives input "PROGRAMR" then output string should be "AGMOPRRR".
  */
 

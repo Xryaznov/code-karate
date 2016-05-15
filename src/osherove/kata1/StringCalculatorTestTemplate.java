@@ -1,34 +1,17 @@
 package osherove.kata1;
 
-import org.junit.Assert;
-import org.junit.Test;
+/**********************************
+ * http://osherove.com/tdd-kata-1 *
+ **********************************/
 
-public class StringCalculatorTest {
-    // Start with the simplest test case of an empty string and move to 1 and two numbers
-    @Test
-    public void shouldReturnZeroOnEmptyString() {
-        Assert.assertEquals(0, new StringCalculator().add(""));
-    }
-
-    @Test
-    public void shouldParseNumberOnOneNumberString() {
-        Assert.assertEquals(1, new StringCalculator().add("1"));
-    }
-
-    @Test
-    public void shouldReturnSumOnSeveralNumbers() {
-        Assert.assertEquals(3, new StringCalculator().add("1,2"));
-    }
-
-    // Remember to solve things as simply as possible so that you force yourself to write tests you did not think about
-    // Remember to refactor after each passing test
-
-    // Allow the Add method to handle an unknown amount of numbers
-    @Test
-    public void shouldReturnSumOnArbitraryAmountOfNumbers() {
-        Assert.assertEquals(5, new StringCalculator().add("1,1,1,1,1"));
-    }
-     /* Allow the Add method to handle new lines between numbers (instead of commas).
+public class StringCalculatorTestTemplate {
+    /**
+     * Start with the simplest test case of an empty string and move to 1 and two numbers
+     * Remember to solve things as simply as possible
+     * so that you force yourself to write tests you did not think about
+     * Remember to refactor after each passing test
+     * Allow the Add method to handle an unknown amount of numbers
+     * Allow the Add method to handle new lines between numbers (instead of commas).
      * the following input is ok:  “1\n2,3”  (will equal 6)
      * the following input is NOT ok:  “1,\n” (not need to prove it - just clarifying)
      * Support different delimiters
