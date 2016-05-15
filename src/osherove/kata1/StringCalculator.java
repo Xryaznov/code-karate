@@ -2,13 +2,20 @@ package osherove.kata1;
 
 import java.util.Arrays;
 
-public class StringCalculator {
-    public int add(String str) {
+class StringCalculator {
+    int add(String str) {
         return str.isEmpty() ? 0 : sum(str);
     }
 
     private int sum(String str) {
-        return Arrays.asList(str.split(",")).stream()
+        if (str.startsWith("//")) {
+            str = str.substring(2);
+        }
+        str = str.replaceAll("\\D", ",");
+        String[] arr = str.split(",");
+        return Arrays.asList(arr).stream()
+                .filter(s -> !s.isEmpty())
+                .map(String::trim)
                 .mapToInt(Integer::parseInt)
                 .sum();
     }

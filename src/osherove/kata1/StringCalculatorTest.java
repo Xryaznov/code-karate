@@ -1,42 +1,62 @@
 package osherove.kata1;
 
-import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
+/**********************************
+ * http://osherove.com/tdd-kata-1 *
+ **********************************/
+
 public class StringCalculatorTest {
-    // Start with the simplest test case of an empty string and move to 1 and two numbers
+    //Start with the simplest test case of an empty string and move to 1 and two numbers
     @Test
     public void shouldReturnZeroOnEmptyString() {
-        Assert.assertEquals(0, new StringCalculator().add(""));
+        assertEquals(0, new StringCalculator().add(""));
     }
 
     @Test
-    public void shouldParseNumberOnOneNumberString() {
-        Assert.assertEquals(1, new StringCalculator().add("1"));
+    public void shouldReturnParsedValue() {
+        assertEquals(1, new StringCalculator().add("1"));
     }
 
     @Test
-    public void shouldReturnSumOnSeveralNumbers() {
-        Assert.assertEquals(3, new StringCalculator().add("1,2"));
+    public void shouldReturnSumOnParsedValues() {
+        assertEquals(4, new StringCalculator().add("1,3"));
     }
-
-    // Remember to solve things as simply as possible so that you force yourself to write tests you did not think about
-    // Remember to refactor after each passing test
 
     // Allow the Add method to handle an unknown amount of numbers
     @Test
-    public void shouldReturnSumOnArbitraryAmountOfNumbers() {
-        Assert.assertEquals(5, new StringCalculator().add("1,1,1,1,1"));
+    public void shouldReturnSumOnAllParsedValues() {
+        assertEquals(17, new StringCalculator().add("10,2, 5"));
     }
-     /* Allow the Add method to handle new lines between numbers (instead of commas).
-     * the following input is ok:  “1\n2,3”  (will equal 6)
-     * the following input is NOT ok:  “1,\n” (not need to prove it - just clarifying)
-     * Support different delimiters
+
+    // Allow the Add method to handle new lines between numbers (instead of commas).
+    @Test
+    public void shouldHandleNewLinesBetweenNumbers() {
+        assertEquals(6, new StringCalculator().add("1\n2,3"));
+    }
+
+     /* Support different delimiters
      * to change a delimiter, the beginning of the string will contain a separate line
      * that looks like this:   “//[delimiter]\n[numbers…]”
      * for example “//;\n1;2” should return three where the default delimiter is ‘;’ .
-     * the first line is optional. all existing scenarios should still be supported
-     * Calling Add with a negative number will throw an exception “negatives not allowed” -
+     */
+    @Test
+    public void shouldSupportDifferentDelimiters() {
+        assertEquals(6, new StringCalculator().add("//;\n1;2;3"));
+    }
+
+     // the first line is optional. all existing scenarios should still be supported
+
+    @Test
+    public void shouldSupportNotProperlyDeclaredDelimiters() {
+        assertEquals(6, new StringCalculator().add("1$2$3"));
+    }
+
+
+     /* Calling Add with a negative number will throw an exception “negatives not allowed” -
      * and the negative that was passed.
      * if there are multiple negatives, show all of them in the exception message
      * stop here if you are a beginner.
