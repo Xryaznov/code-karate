@@ -48,7 +48,7 @@ public class StringCalculatorTest {
         assertEquals(6, new StringCalculator().add("//;\n1;2;3"));
     }
 
-     // the first line is optional. All existing scenarios should still be supported
+     // The first line is optional. All existing scenarios should still be supported
 
     @Test
     public void shouldSupportNotProperlyDeclaredDelimiters() {
