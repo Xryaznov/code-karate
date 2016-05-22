@@ -2,11 +2,10 @@ package osherove.kata1;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class StringCalculatorTest {
-     // Start with the simplest test case of an empty string and move to 1 and two numbers
+    // Start with the simplest test case of an empty string and move to 1 and two number
     @Test
     public void shouldReturnZeroOnEmptyString() {
         assertEquals(0, new StringCalculator().add(""));
@@ -21,8 +20,6 @@ public class StringCalculatorTest {
     public void shouldReturnSumOnSeveralValues() {
         assertEquals(3, new StringCalculator().add("1,2"));
     }
-
-
      /* Remember to solve things as simply as possible
      * so that you force yourself to write tests you did not think about
      * Remember to refactor after each passing test

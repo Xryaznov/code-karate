@@ -8,10 +8,7 @@ public class StringCalculator {
     }
 
     private int sum(String numbers) {
-        return Arrays.asList(toStrArray(numbers))
-                .stream()
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
+        return Arrays.asList(toStrArray(numbers)).stream()
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
@@ -19,4 +16,5 @@ public class StringCalculator {
     private String[] toStrArray(String numbers) {
         return numbers.split(",");
     }
+
 }
