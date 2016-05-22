@@ -2,21 +2,21 @@ package osherove.kata1;
 
 import java.util.Arrays;
 
-class StringCalculator {
-    int add(String str) {
-        return str.isEmpty() ? 0 : sum(str);
+public class StringCalculator {
+    public int add(String numbers) {
+        return numbers.isEmpty() ? 0 : sum(numbers);
     }
 
-    private int sum(String str) {
-        if (str.startsWith("//")) {
-            str = str.substring(2);
-        }
-        str = str.replaceAll("\\D", ",");
-        String[] arr = str.split(",");
-        return Arrays.asList(arr).stream()
-                .filter(s -> !s.isEmpty())
+    private int sum(String numbers) {
+        return Arrays.asList(toStrArray(numbers))
+                .stream()
                 .map(String::trim)
+                .filter(s -> !s.isEmpty())
                 .mapToInt(Integer::parseInt)
                 .sum();
+    }
+
+    private String[] toStrArray(String numbers) {
+        return numbers.split(",");
     }
 }
